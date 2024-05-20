@@ -31,6 +31,10 @@ io.on('connection', (socket) => {
 app.use(cors());
 app.use(logger('dev'));
 
+app.get('/', (req, res)=>{
+    res.send('Chat server :)')
+})
+
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
