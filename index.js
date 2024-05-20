@@ -28,7 +28,9 @@ io.on('connection', (socket) => {
     })
 });
 
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
 app.use(logger('dev'));
 
 app.get('/', (req, res)=>{
