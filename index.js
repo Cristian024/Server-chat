@@ -37,6 +37,10 @@ app.get('/', (req, res)=>{
     res.send('Chat server  :)')
 })
 
+app.get('/prueba', (req, res) =>{
+    res.json({"error": null})
+})
+
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
