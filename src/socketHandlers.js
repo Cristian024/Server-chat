@@ -21,33 +21,29 @@ export default function socketHandlers(io) {
                 cdate: formattedDate,
                 phrase: msg.message,
                 user_post: msg.user_sender.user_id,
-                conversation_id: msg.conversation_id
+                conversation_id: msg.conversation_id,
+                state: 'sended'
             }
 
-            const message_event = { state: 'bonding', message: message_obj }
+            const message_event = {}
 
-            io.emit(`message_event_${msg.conversation_id}`, message_event);
-
-            setTimeout(async () => {
-                await executeInsert('message', message_obj).then(
-                    function (value) {
-                        message_obj.id = value.data.id;
-                        message_event.message = message_obj;
-                        message_event.state = 'sended'
-                    },
-                    function (error) {
-                        message_obj.id = null,
-                            message_event.message = message_obj;
-                        message_event.state = 'failed'
-                        message_event.error_message = error.error
-                    }
-                ).finally(
-                    function () {
-                        io.emit(`message_event_${msg.conversation_id}`, message_event);
-                    }
-                )
-            }, 20000);
-
+            await executeInsert('message', message_obj).then(
+                function (value) {
+                    message_obj.id = value.data.id;
+                    message_event.message = message_obj;
+                    message_event.msg_temp_id = msg.msg_temp_id
+                },
+                function (error) {
+                    message_obj.id = null;
+                    message_event.message = message_obj;
+                    message_event.error_message = error.error
+                    message_event.msg_temp_id = msg.msg_temp_id
+                }
+            ).finally(
+                function () {
+                    io.emit(`message_event_${msg.conversation_id}`, message_event);
+                }
+            )
         })
     })
 }
