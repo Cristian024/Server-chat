@@ -34,7 +34,7 @@ app.use(cors({
 app.use(logger('dev'));
 
 app.get('/', (req, res)=>{
-    res.send('Chat server  :)')
+    res.send('Chat server Unimayor :)')
 })
 
 server.listen(port, () => {
