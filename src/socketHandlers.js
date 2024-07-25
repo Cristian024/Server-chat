@@ -35,6 +35,7 @@ export default function socketHandlers(io) {
                 },
                 function (error) {
                     message_obj.id = null;
+                    message_obj.state = 'failed'
                     message_event.message = message_obj;
                     message_event.error_message = error.error
                     message_event.msg_temp_id = msg.msg_temp_id
