@@ -5,7 +5,7 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
 
-import socketHandlers from './src/socketHandlers.js';
+import socketHandlers from './src/app/socketHandlers.js';
 
 const port = process.env.port || 3000;
 
